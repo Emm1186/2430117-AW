@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JavaCream</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>JavaScript</h1>
+    <p>Emanuel Aguirre</p>
+  </header>
+
+  <nav>
+    <a href="#intro">Introducción</a>
+    <a href="#fundamentos">Fundamentos</a>
+    <a href="#control">Control de flujo</a>
+    <a href="#funciones">Funciones</a>
+    <a href="#objetos">Objetos</a>
+    <a href="#otros">Otros temas</a>
+  </nav>
+
+  <section id="intro">
+    <h2>Introducción</h2>
+    
+    <h3>¿Qué es JavaScript y cuáles son sus principales usos en la web?</h3>
+    <p>JavaScript es un lenguaje de programación que se usa sobre todo en las páginas web. Lo que tiene de interesante es que permite que un sitio no sea solo texto e imágenes estáticas, sino que tenga movimiento, interactividad y respuestas inmediatas sin necesidad de recargar todo.</p>
+    
+    <h3>¿En qué año y con qué propósito se creó JavaScript?</h3>
+    <p> JavaScript fue creado en 1995 por Brendan Eich, El propósito era darle más dinamismo a las páginas web, Con JavaScript se buscaba validar formularios o mostrar cambios en la pantalla sin necesidad de recargarla por completo. </p>
+    
+    <h3>¿Por qué JavaScript no es lo mismo que Java?</h3>
+    <p>Aunque los nombres son parecidos, JavaScript y Java son lenguajes de programación DIFERENTES. Java es un lenguaje más complejo y se usa para aplicaciones grandes, mientras que JavaScript es más sencillo y se usa principalmente en la web para hacer las páginas interactivas.</p>
+
+    <h3>¿Cómo se complementa JavaScript con HTML y CSS?</h3>
+    <p>HTML es el lenguaje que estructura el contenido de una página web, como los textos, imágenes y enlaces. <br> CSS es el lenguaje que se encarga del diseño y la apariencia, como los colores, fuentes y disposición de los elementos. JavaScript complementa a HTML y CSS al añadir interactividad y dinamismo, permitiendo que los usuarios puedan interactuar con la página de manera más fluida y atractiva.</p>
+    <img alt = "the Tres pilares" src = "emage.jpg" />
+
+    </section>
+
+  <section id="fundamentos">
+    <h2>Fundamentos del lenguaje</h2>
+
+    <h3>¿Cuál es la sintaxis básica de JavaScript y cómo se escriben comentarios?</h3>
+    <p>La sintaxis básica de JavaScript se parece mucho a la de otros lenguajes de programación: se escriben instrucciones línea por línea y casi siempre terminan con un punto y coma ;.</p>
+    <h4>Por ejemplo: </h4>
+    <p> Si quiero mostrar un mensaje en la consola, usaría console.log("Hola");. <br>
+        También se usan variables para guardar datos, que se pueden declarar con let, const o var. <br>
+        Las llaves { } sirven para agrupar bloques de código, como en funciones o ciclos, y los paréntesis ( ) se usan al llamar funciones o en condiciones.<br>
+        En cuanto a los comentarios, se escriben de dos formas: si es un comentario corto en una sola línea se usa // y para más líneas /* */</p>
+
+    <h3>¿Qué diferencias hay entre var, let y const?</h3>
+    <p>Existen tres formas principales de declarar variables: var, let y const, y aunque parecen parecidas, tienen diferencias importantes.</p>
+    <h5> Var:</h5>
+    <p>Es la forma más antigua de declarar variables. Tiene un alcance global o de función, lo que puede causar problemas si no se usa con cuidado, ya que una variable var puede ser redeclarada y actualizada en cualquier parte del código.</p>
+    <h5>let:</h5>
+    <p>Es una forma más moderna y recomendada de declarar variables. Tiene un alcance de bloque, lo que significa que solo existe dentro del bloque donde se declara (como dentro de un if o un for). Además, no permite redeclarar la misma variable en el mismo alcance, lo que ayuda a evitar errores.</p>
+    <h5>Const:</h5>
+    <p>También tiene un alcance de bloque, pero se usa para declarar constantes, es decir, valores que no deben cambiar una vez asignados. Al igual que let, no permite redeclarar la misma variable en el mismo alcance. Sin embargo, si la constante es un objeto o un array, sus propiedades o elementos sí pueden modificarse.</p>
+
+    <h5>En resumen</h5>
+    <p> var: antigua, menos segura, alcance de función.<br>
+    let: se usa para variables que cambian, alcance de bloque.<br> 
+    const: para valores que no cambian, alcance de bloque.</p>
+
+
+    <h3>¿Cuáles son los tipos de datos primitivos en JavaScript?</h3> 
+    <p>Los tipos de datos primitivos en JavaScript son los bloques básicos con los que se trabaja. Aquí te los explico:</p>
+    <h5>Número (Number):</h5>
+    <p>Representa tanto números enteros como decimales. Ejemplo: 42, 3.14</p>
+    <h5>Cadena de texto (String):</h5>
+    <p>Es una secuencia de caracteres encerrada entre comillas simples (' ') o dobles (" "). Ejemplo: "Hola, mundo!"</p>
+    <h5>Booleano (Boolean):</h5>
+    <p>Solo puede tener dos valores: true (verdadero) o false (falso). Se usa para representar condiciones. Ejemplo: true, false</p>
+    <h5>Indefinido (Undefined):</h5>
+    <p>Indica que una variable ha sido declarada pero no se le ha asignado ningún valor. Ejemplo: let x; // x es undefined</p>
+    <h5>Nulo (Null):</h5>
+    <p>Representa la ausencia intencional de cualquier valor. Es un valor que
+    indica que no hay nada. Ejemplo: let y = null;</p>
+    <h5>Símbolo (Symbol):</h5>
+    <p>Es un tipo de dato único e inmutable que se usa para identificar propiedades de objetos de manera única. Ejemplo: let sym = Symbol('descripcion');</p>
+    <h5>BigInt:</h5>
+    <p>Es un tipo de dato que permite representar números enteros muy grandes, más allá del límite de los números normales en JavaScript. Se crea añadiendo una 'n' al final del número. Ejemplo: let bigIntNum = 123456789012345678901234567890n;</p>
+
+    <h3>¿Qué diferencia hay entre un array y un objeto en JavaScript?</h3>
+    <p>Un array y un objeto son dos estructuras de datos diferentes en JavaScript, cada una con sus propias características y usos.</p>
+    <h5>Array:</h5>
+    <p>Un array es una lista ordenada de elementos, donde cada elemento tiene un índice numérico que empieza en 0. Los arrays son ideales para almacenar colecciones de datos similares, como una lista de nombres o números. Se accede a los elementos del array usando su índice. Ejemplo: let frutas = ["manzana", "banana", "cereza"]; console.log(frutas[0]); // "manzana"</p>
+    <h5>Objeto:</h5>  
+    <p>Un objeto es una colección de pares clave-valor, donde cada clave es una cadena (string) que identifica un valor asociado. Los objetos son útiles para representar entidades con múltiples propiedades, como un usuario con nombre, edad y correo electrónico. Se accede a las propiedades del objeto usando la clave. Ejemplo: let persona = {nombre: "Juan", edad: 30, correo: " </p>
+
+    <h3>¿Qué son y cómo se usan los operadores aritméticos, lógicos y relacionales?</h3>
+  
+    <h4> Operadores Aritméticos </h4>
+    <p> Se usan para hacer cálculos matemáticos. Ejemplos:</p>
+    <code> let a = 10;</code><br>
+    <code> let b = 3; </code><br>
+    <code> console.log(a + b); </code> <br>
+    <code> console.log(a - b); </code> <br>
+    <code> console.log(a * b); </code> <br>
+    <code> console.log(a / b); </code> <br>
+    <code> console.log(a % b); </code> <br>
+    <code> console.log(a ** b); </code> <br>
+    <p>Estos operadores se usan para realizar operaciones matemáticas básicas como suma (+), resta (-), multiplicación (*), división (/), módulo (%) y exponenciación (**).</p>        
+    
+    <h4>Operadores Lógicos</h4>
+
+    <p>Se usan para combinar o invertir valores booleanos (true o false). Ejemplos:</p>
+    <code> let p = true;</code><br>
+    <code> let q = false; </code><br>
+    <code> console.log(p && q); </code> <br>
+    <code> console.log(p || q); </code> <br>
+    <code> console.log(!p); </code> <br>
+
+    <h4>Operadores Relacionales</h4>
+
+     <p>Se usan para combinar o invertir valores booleanos (true o false). Ejemplos:</p>
+    <code> let x = 5; </code><br>
+    <code> let y = 8; </code><br>
+    <code> console.log(x > y); </code> <br>
+    <code> console.log(x < y); </code> <br>
+    <code> console.log(x >= 5); </code> <br>
+    <code> console.log(x <= 4); </code> <br>
+    <code> console.log(x == "5"); </code> <br>
+    <code> console.log(x === "5"); </code> <br>
+    <code> console.log(x != y);  </code> <br>
+
+    <p>Estos operadores se usan para comparar dos valores y devuelven un valor booleano (true o false). Incluyen mayor que (>), menor que (<), mayor o igual que (>=), menor o igual que (<=), igualdad (== y ===) y desigualdad (!= y !==).</p>
+
+    </section>
+
+  <section id="control">
+    <h2>Control de flujo</h2>
+    <h3>¿Cómo funcionan las sentencias condicionales if, else y switch?</h3>
+    <h4>if</h4>
+    <p>Ejecuta un bloque de código si la condición es verdadera.</p>
+
+    <code> let edad = 18; </code><br>
+    <code> if (edad >= 18) { </code><br>
+    <code> console.log("Eres mayor de edad"); </code> <br>
+    <code> } </code> <br>
+   
+
+    <h4>if else</h4>
+    <p>Si la condición del if no se cumple, se ejecuta el bloque del else.</p>
+
+    <code> let hora = 10; </code><br>
+    <code> if (hora < 12) { </code><br>
+    <code> console.log("hello, how are you");</code> <br>
+    <code> } else { </code> <br>
+    <code> console.log("fine, thank you"); </code> <br>
+    <code> } </code> <br>
+
+    <h4>if--else if--else</h4>
+    <p>Si la condición del if no se cumple, se ejecuta el bloque del else. Y permite comprobar múltiples condiciones.</p>
+
+    <code> let nota = 85; </code><br>
+    <code> if (nota >= 90) { </code><br>
+    <code>  console.log("Excelente");</code> <br>
+    <code> } else if (nota >= 70) {</code> <br>
+    <code> console.log("Aprobado"); </code> <br>
+    <code> } else {</code> <br>
+    <code> console.log("Reprobado"); </code> <br>
+    <code> } </code> <br>
+
+
+    <h4>Switch</h4>
+    <p>Se usa cuando hay muchas opciones posibles para una sola variable.</p>
+
+    <code> let respuesta = 2; </code><br>
+    <code> switch (respuesta) { </code><br>
+    <code>   case 1:</code> <br>
+    <code> console.log("Si");</code> <br>
+    <code>  break; </code> <br>
+    <code> case 2:</code> <br>
+    <code> console.log("No"); </code> <br>
+    <code> break; </code> <br>
+    <code> }</code> <br>
+
+
+    <h3>¿Cuáles son las diferencias entre los bucles for, while y do...while?</h3>
+    <p>En JavaScript, los bucles (ciclos) sirven para repetir un bloque de código varias veces.
+    Las diferencias principales entre for, while y do...while están en cómo controlan la condición.</p>
+    
+    <h4>for</h4>
+    <p>Se usa cuando sabemos cuántas veces queremos repetir algo.
+    Tiene 3 partes: inicialización, condición y actualización.</p>
+
+    <code> for (let i = 1; i <= 5; i++) { </code><br>
+    <code> console.log("Número: " + i); </code><br>
+    <code> } </code> <br>
+    
+    <h4>while</h4>
+    <p>Se usa cuando no sabemos cuántas veces se repetirá, pero depende de una condición.
+    Primero verifica la condición, luego ejecuta.</p>
+
+    <code> let i = 1; </code><br>
+    <code> while (i <= 5) {</code><br>
+    <code> console.log("Número: " + i);</code> <br>
+    <code> i++;</code> <br>
+    <code> } </code> <br>
+
+    <h4>do while</h4>
+    <p>Parecido a while, pero siempre ejecuta al menos una vez el bloque, porque la condición se revisa al final.</p>
+
+    <code> let i = 6; </code><br>
+    <code> do {</code><br>
+    <code> console.log("Número: " + i);</code> <br>
+    <code>  i++;</code> <br>
+    <code>} while (i <= 5); </code> <br>
+
+    <h3>¿Para qué sirven las palabras clave break y continue?</h3>
+    <p>Las palabras clave break y continue se usan dentro de bucles (for, while, do...while, switch).</p>
+    
+    <h4>Break</h4>
+    <p>Cuando se ejecuta, el bucle termina aunque la condición siga siendo verdadera.</p>
+
+     <h4>Continue</h4>
+    <p>Sirve para saltar la iteración actual y continuar con la siguiente.
+    No detiene el ciclo, solo se “brinca” el código que queda dentro del bucle.</p>
+
+  </section>
+
+  <section id="funciones">
+    <h2>Funciones</h2>
+    <h3>¿Cómo se declara una función y cómo se llama en JavaScript?</h3>
+    <p>En JavaScript, una función es un bloque de código que se puede reutilizar.
+    Se declara (definir) y luego se llama (usar).</p>
+
+    <h4>declarar una funcion</h4>
+    <p>Hay varias formas, la más común es con la palabra clave function:</p>
+
+    <code> function saludar() {</code><br>
+    <code>  console.log("¡que onda padre!");</code><br>
+    <code> }</code> <br>
+
+     <h4>Llamar una función</h4>
+    <p>Para ejecutarla, escribes su nombre seguido de paréntesis:</p>
+
+    <code> saludar();</code><br>
+
+
+     <h4>Función con parámetros</h4>
+    <p>Se le pueden pasar valores:</p>
+
+    <code> function sumar(a, b) {</code><br>
+    <code> return a + b;</code><br>
+    <code> }</code> <br>
+    <code> console.log(sumar(5, 3));</code> <br>
+
+
+     <h4>Función tipo expresión</h4>
+    <p>Se guarda en una variable:</p>
+
+    <code> let multiplicar = function(x, y) {</code><br>
+    <code>  return x * y;</code><br>
+    <code> };</code> <br>
+    <code> console.log(multiplicar(4, 2));</code> <br>
+
+
+    <h3>¿Qué significa que una función tenga parámetros y un valor de retorno?</h3>
+
+    <h4>Valor de retorno</h4>
+    <p>Ejemplo:</p>
+
+    <code> function saludar(nombre) { </code><br>
+    <code>  console.log("Hola " + nombre);</code><br>
+    <code> }</code> <br>
+    <code> saludar("Ammy");</code> <br>
+    <code> saludar("Annie");</code> <br>
+
+    <h4>Parámetros en una función</h4>
+    <p>Ejemplo:</p>
+
+    <code>function sumar(a, b) { </code><br>
+    <code> return a + b;    </code><br>
+    <code> }</code> <br>
+    <code> let resultado = sumar(4, 6);</code> <br>
+    <code>console.log(resultado);</code> <br>
+
+    
+
+
+
+    <h3>¿Qué son las funciones flecha (=>) y qué ventajas tienen?</h3>
+
+    <p>Las funciones flecha en JavaScript son una manera más corta y moderna de escribir funciones. En lugar de usar la palabra “function”, se escriben con una flechita =>.</p>
+
+    <h4>Ventajas principales:</h4>
+    1.     Son más rápidas de escribir porque no necesitas tanta sintaxis, son ideales cuando la función es pequeña.<br>
+    2.     Tienen un retorno implícito si la función solo hace una operación, no necesitas poner la palabra “return”, ya se entiende automáticamente.<br>
+    3.     No cambian el “this” a diferencia de las funciones normales, mantienen el mismo contexto en el que fueron creadas, lo que evita errores cuando trabajas con objetos o eventos.<br>
+    4.     Se usan mucho en callbacks es decir, en funciones que pasas dentro de otras funciones, como cuando quieres recorrer listas, filtrar datos o transformar valores.<br>
+    
+    
+
+
+
+    <h3> ¿Qué es el scope en JavaScript y cómo afecta a las variables?</h3>
+
+    <p>En JavaScript, el scope es el alcance de una variable, es decir, 
+    dónde puede usarse. Puede ser global (se usa en todo el programa),
+    local (solo dentro de una función) o de bloque (solo dentro de llaves 
+    { } si se declara con let o const). El scope ayuda a organizar el código 
+    y evita errores al usar variables fuera de lugar.</p>
+
+  </section>
+
+  <section id="objetos">
+    <h2>Objetos</h2>
+    <h3>¿Cómo se declara un objeto y cómo se accede a sus propiedades?</h3>
+    <p>En JavaScript, un objeto es una estructura que permite guardar información en forma de pares clave: valor.</p>
+    
+    
+    <h4>Declaración de un objeto:</h4>
+    <p>Se hace con llaves { }, donde se escriben las propiedades y sus valores.
+    Ejemplo verbal: un objeto de una persona podría tener nombre, edad y ciudad.</p>
+
+    <code> let persona = { </code><br>
+    <code>  nombre: "Annie",</code><br>
+    <code> edad: 25,</code> <br>
+    <code> ciudad: "México"</code> <br>
+    <code> };</code> <br>
+
+    <h4>Acceder a sus propiedades:</h4>
+    <p>Con punto (.)</p>
+
+    <code>console.log(persona.nombre); </code><br>
+
+    <p>Con corchetes ([])</p>
+
+    <code>console.log(persona["edad"]); </code><br>
+
+
+
+    <h3>¿Qué diferencia hay entre una propiedad y un método en un objeto?</h3>
+    <p>En JavaScript, dentro de un objeto una propiedad es una característica 
+    o dato que describe al objeto, mientras que un método es una función que 
+    está dentro del objeto y representa una acción que este puede realizar.</p>
+    
+    <p>Por ejemplo, si pensamos en un objeto llamado auto, sus propiedades podrían
+    ser el color, la marca y el año, porque describen cómo es el auto. En cambio,
+    sus métodos serían acciones como encender, frenar o acelerar, porque son cosas
+    que el auto puede hacer.</p>
+
+     <h3>3 métodos básicos de los arrays (push, pop, map, etc.) y explica cómo funcionan.</h3>
+
+    1.  push() agrega un nuevo elemento al final del array.<br>
+    2.  pop() elimina el último elemento del array.<br>
+    3.  map() crea un nuevo array aplicando una función a cada elemento del original, sin modificarlo.<br>
+
+    <p> push añade, pop quita y map transforma.</p>
+  </section>
+
+  <section id="otros">
+    <h2>Otros temas</h2>
+    <h3>¿Qué es el DOM y por qué es importante?</h3>
+    <p>es una representación en forma de árbol 
+    de todo lo que tiene una página web: etiquetas, 
+    texto, imágenes, enlaces, etc. Cada elemento de la 
+    página se convierte en un nodo dentro de ese árbol, 
+    y gracias al DOM, JavaScript puede acceder, modificar 
+    o eliminar esos elementos en tiempo real.</p>
+
+     <h3>¿Qué es un evento en JavaScript</h3>
+    <p>Un evento en JavaScript es una acción o
+    suceso que ocurre en una página web y que 
+    el navegador puede detectar, como cuando el
+    usuario hace clic, escribe o mueve el mouse.
+    Los eventos son importantes porque permiten
+    que una página sea interactiva, ya que podemos
+    programar funciones que se ejecuten cuando algo suceda.</p>
+
+    <h4>Ejemplos comunes de eventos:</h4>
+    1. click. cuando el usuario hace clic en un elemento.<br>
+    2. mouseover. cuando el puntero del mouse pasa sobre un elemento.<br>
+    3. keydown → cuando se presiona una tecla del teclado.<br>
+
+
+    <h3>¿Cuál es la diferencia entre alert, prompt y console.log?</h3>
+    <p>La diferencia está en cómo muestran información y para qué se usan:</p>
+
+    1. alert() Muestra un cuadro emergente con un mensaje y un botón de "Aceptar
+    ". Se usa para dar avisos rápidos al usuario.<br>
+    2. prompt() Muestra un cuadro emergente que además de un mensaje incluye 
+    una caja de texto para que el usuario escriba algo y lo devuelva como respuesta.<br>
+    3. console.log() → Envía información a la consola del navegador (no al usuario directamente).
+     Se usa sobre todo para probar y depurar el código.<br>
+
+
+     <h3>¿Cómo se abre la consola del navegador y qué ventajas tiene usarla para depurar código?</h3>
+    <p>la consola se abre presionando F12 o con la combinación Ctrl + Shift + I (o Cmd + Option + I en Mac)
+    y luego seleccionando la pestaña Console.</p>
+
+    <p>La consola permite ver mensajes, errores y resultados de tu código JavaScript en tiempo real. Sus ventajas son:</p>
+    
+    1. Detectar errores rápidamente y ver exactamente dónde ocurren.<br>
+    2. Probar fragmentos de código sin tener que recargar la página.<br>
+    3. Inspeccionar variables, objetos y estructuras de datos mientras el programa se ejecuta.<br>
+
+  </section>
+
+</body>
+</html>
