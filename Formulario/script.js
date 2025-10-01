@@ -13,7 +13,7 @@ const tablaInfo = document.getElementById("tabla-info");
 
 let alumnos = [];
 
-// se guardar el alumno
+
 btnGuardar.addEventListener("click", () => {
   const matricula = inputMatricula.value;
   const nombre = inputNombre.value;

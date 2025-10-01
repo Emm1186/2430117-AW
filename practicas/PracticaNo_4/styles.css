@@ -1,0 +1,44 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #d2cfcf;
+  margin: 0;
+}
+
+.contenedor {
+  display: flex;
+  gap: 40px; /* espacio entre las dos tarjetas 
+  los cuadros de los textos */
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  width: 250px;
+  text-align: center; /* para centrar el título */
+}
+
+form {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+label, input, button {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+button {
+  background: rgb(111, 111, 129);
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
