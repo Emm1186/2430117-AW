@@ -1,0 +1,29 @@
+#encabezado {
+  margin-bottom: 20px;
+}
+
+#titulo-universidad {
+  color: #0d6efd;
+}
+
+#subtitulo-sistema {
+  color: #495057;
+}
+
+#registro-header {
+  background-color: #198754;
+  border-radius: 4px;
+}
+
+#registro-box {
+  background-color: #f8f9fa;
+}
+
+#lista-header {
+  background-color: #0dcaf0;
+  border-radius: 4px;
+}
+
+#lista-box {
+  background-color: #ffffff;
+}

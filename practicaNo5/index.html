@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Login y Gestor de Tareas</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- FORMULARIO DE LOGIN -->
+  <!-- Visible al inicio para que el usuario inicie sesión -->
+  <div id="loginForm">
+    <h2>Iniciar sesión</h2>
+    <label for="loginEmail">Correo:</label>
+    <input type="email" id="loginEmail" required>
+    
+    <label for="loginPassword">Contraseña:</label>
+    <input type="password" id="loginPassword" required>
+    
+    <button id="btnLogin">Ingresar</button>
+    <p>¿No tienes cuenta? <a href="#" id="linkRegistro">Registrarse</a></p>
+  </div>
+
+  <!-- FORMULARIO DE REGISTRO -->
+  <!-- Oculto al inicio, se muestra al dar clic en “Registrarse” -->
+  <div id="registerForm" class="oculto">
+    <h2>Registro</h2>
+    <label for="registerEmail">Correo:</label>
+    <input type="email" id="registerEmail" required>
+    
+    <label for="registerPassword">Contraseña:</label>
+    <input type="password" id="registerPassword" required>
+    
+    <button id="btnRegistro">Guardar usuario</button>
+    <p>¿Ya tienes cuenta? <a href="#" id="linkLogin">Iniciar sesión</a></p>
+  </div>
+
+  <!--MENSAJE DE BIENVENIDA -->
+  <p id="mensaje" class="oculto"></p>
+
+  <!-- GESTOR DE TAREAS -->
+  <!-- Solo se muestra cuando el usuario inicia sesión -->
+  <div id="taskManager" class="oculto">
+    <h2>Gestión de Tareas</h2>
+
+    <!-- Formulario para crear/editar tareas -->
+    <form id="taskForm">
+      <label>Tarea:</label>
+      <input type="text" id="tarea" required>
+
+      <label>Descripción:</label>
+      <input type="text" id="descripcion" required>
+
+      <label>Prioridad:</label>
+      <select id="prioridad">
+        <option>Baja</option>
+        <option>Media</option>
+        <option>Alta</option>
+      </select>
+
+      <label>Estado:</label>
+      <select id="estado">
+        <option>Pendiente</option>
+        <option>En progreso</option>
+        <option>Completada</option>
+      </select>
+
+      <label>Fecha límite:</label>
+      <input type="date" id="fecha" required>
+
+      <button type="submit">Agregar tarea</button>
+    </form>
+
+    <!-- Tabla para listar las tareas creadas -->
+    <table border="1" style="margin-top:15px; width:100%;">
+      <thead>
+        <tr>
+          <th>Tarea</th>
+          <th>Descripción</th>
+          <th>Prioridad</th>
+          <th>Estado</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="taskList"></tbody>
+    </table>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
