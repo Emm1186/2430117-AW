@@ -1,0 +1,87 @@
+/* ======== ESTILOS GENERALES ======== */
+body {
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #1f1f1f;
+    color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ======== ENCABEZADO ======== */
+header {
+    background-color: #2a2a2a;
+    color: #d8d8d8;
+    padding: 1em 2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+header h1 {
+    margin: 0;
+    color: #b2c248; /* verde oliva más claro */
+    font-size: 1.6em;
+    font-weight: 600;
+}
+
+header .autor {
+    font-size: 1em;
+    color: #c0c0c0;
+    font-style: italic;
+}
+
+/* ======== CONTENEDOR PRINCIPAL ======== */
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 2em auto;
+    padding: 2em;
+    background-color: rgba(50, 50, 50, 0.6);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* ======== LISTA DE PROYECTOS ======== */
+#lista-proyectos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.2em;
+}
+
+/* ======== BOTONES ======== */
+.proyecto-btn {
+    display: block;
+    padding: 16px 20px;
+    background-color: #708238; /* verde oliva */
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.proyecto-btn:hover {
+    background-color: #8b9a46; /* tono más claro */
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* ======== RESPONSIVE ======== */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.2em;
+    }
+    .container {
+        padding: 1em;
+    }
+    .proyecto-btn {
+        font-size: 1em;
+    }
+}
