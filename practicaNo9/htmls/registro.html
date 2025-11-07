@@ -1,40 +1,49 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Crear cuenta</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../css/styles.css">
-  </head>
-  <body>
-    <main class="register-page">
-      <div class="register-card">
-        <h2>Crear cuenta</h2>
-        <form id="registerForm">
-          <div class="mb-3">
-            <label for="regNombre" class="form-label">Nombre (opcional)</label>
-            <input type="text" id="regNombre" class="form-control" placeholder="Tu nombre">
-          </div>
-          <div class="mb-3">
-            <label for="regCorreo" class="form-label">Correo electrónico</label>
-            <input type="email" id="regCorreo" class="form-control" placeholder="tu@correo.com" required>
-          </div>
-          <div class="mb-3">
-            <label for="regPass" class="form-label">Contraseña</label>
-            <input type="password" id="regPass" class="form-control" placeholder="••••••••" required>
-          </div>
-          <button type="submit" class="btn btn-primary">Registrarme</button>
-          <p class="error-message" id="regError">El correo ya existe</p>
-          <p class="success-message" id="regOk">Cuenta creada. Redirigiendo…</p>
-        </form>
-        <div class="auth-switch">
-          ¿Ya tienes cuenta? <a href="index.html">Inicia sesión</a>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crear cuenta</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Usa el nuevo tema oliva -->
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <main class="pantalla-auth">
+    <div class="tarjeta-auth">
+      <h2>Crear cuenta</h2>
+
+      <form id="formRegistro">
+        <div class="mb-3">
+          <label for="regNombre" class="form-label">Nombre (opcional)</label>
+          <input type="text" id="regNombre" class="form-control" placeholder="Tu nombre">
         </div>
+
+        <div class="mb-3">
+          <label for="regCorreo" class="form-label">Correo electrónico</label>
+          <input type="email" id="regCorreo" class="form-control" placeholder="tu@correo.com" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="regPass" class="form-label">Contraseña</label>
+          <input type="password" id="regPass" class="form-control" placeholder="••••••••" required>
+        </div>
+
+        <button type="submit" class="boton">Registrarme</button>
+
+        <!-- Mensajes -->
+        <p id="mensajeError" class="mensaje-error">El correo ya existe</p>
+        <p id="mensajeOk" class="mensaje-ok">Cuenta creada. Redirigiendo…</p>
+      </form>
+
+      <div class="auth-switch">
+        ¿Ya tienes cuenta? <a href="index.html">Inicia sesión</a>
       </div>
-    </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/db.js"></script>
-    <script src="../js/registro.js"></script>
-  </body>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/db.js"></script>
+  <script src="../js/registro.js"></script>
+</body>
 </html>
