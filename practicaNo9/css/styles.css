@@ -1,0 +1,197 @@
+:root {
+  --fondo: #f6f7f2;
+  --tarjeta: #ffffff;
+  --borde: #e3e4dd;
+  --texto: #1f2937;
+  --muted: #6b7280;
+  --oliva: #556b2f;      /* verde oliva principal */
+  --oliva-osc: #445625; /* hover */
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* ------------------------------ */
+/* ---- Login / Registro ---- */
+/* ------------------------------ */
+.pantalla-auth {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #e7ecd9, #f6f7f2);
+}
+
+.tarjeta-auth {
+  width: 100%;
+  max-width: 420px;
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .06);
+}
+
+.tarjeta-auth h2 {
+  margin: 0 0 14px;
+  color: var(--oliva);
+  text-align: center;
+}
+
+.form-label {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  padding: 11px;
+  border: 1.8px solid var(--borde);
+  border-radius: 10px;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--oliva);
+}
+
+.boton {
+  display: inline-block;
+  border: 1px solid var(--oliva);
+  background: var(--oliva);
+  color: #fff;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  width: 100%;
+  cursor: pointer;
+}
+
+.boton:hover {
+  background: var(--oliva-osc);
+  border-color: var(--oliva-osc);
+}
+
+.mensaje-error {
+  color: #b91c1c;
+  text-align: center;
+  margin-top: 10px;
+  display: none;
+}
+
+.mensaje-ok {
+  color: #2f6b55;
+  text-align: center;
+  margin-top: 10px;
+  display: none;
+}
+
+.auth-switch {
+  text-align: center;
+  margin-top: 12px;
+  font-size: .95rem;
+}
+
+.auth-switch a {
+  color: var(--oliva);
+  text-decoration: none;
+}
+
+.auth-switch a:hover {
+  text-decoration: underline;
+}
+
+/* ---------------------------------------------------- */
+/* ---- Layout principal (sidebar + contenido) ---- */
+/* ---------------------------------------------------- */
+.encabezado {
+  background: #fff;
+  border-bottom: 1px solid var(--borde);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.encabezado .marca {
+  font-weight: 800;
+  color: var(--oliva);
+}
+
+.encabezado .espacio {
+  flex: 1;
+}
+
+.encabezado .usuario {
+  color: var(--muted);
+  font-size: .95rem;
+}
+
+.contenedor {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: calc(100vh - 54px);
+}
+
+.barra-lateral {
+  background: #fff;
+  border-right: 1px solid var(--borde);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.barra-lateral .titulo {
+  font-weight: 700;
+  color: var(--oliva);
+  margin-bottom: 6px;
+}
+
+.enlace {
+  display: block;
+  padding: 10px 12px;
+  border-radius: 10px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.enlace:hover,
+.enlace.activo {
+  background: #eef2e3;
+}
+
+.principal {
+  padding: 16px;
+}
+
+.tarjeta {
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+/* -------------------------- */
+/* ---- Media Query ---- */
+/* -------------------------- */
+@media (max-width: 900px) {
+  .contenedor {
+    grid-template-columns: 1fr;
+  }
+  
+  .barra-lateral {
+    position: sticky;
+    top: 0;
+    flex-direction: row;
+    overflow-x: auto;
+  }
+}
