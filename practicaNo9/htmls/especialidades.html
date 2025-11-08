@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Especialidades médicas</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+  <header class="encabezado">
+    <div class="marca">MediLife</div><div class="espacio"></div>
+    <div class="usuario">Emm</div>
+    <button class="btn btn-sm btn-outline-success">Cerrar sesión</button>
+  </header>
+  <div class="contenedor">
+    <nav class="barra-lateral">
+      <div class="titulo">Menú</div>
+      <a class="enlace" href="dashboard.html">Inicio</a>
+      <a class="enlace" href="pacientes.html">Control de pacientes</a>
+      <a class="enlace" href="agenda.html">Control de agenda</a>
+      <a class="enlace" href="medicos.html">Control de médicos</a>
+      <a class="enlace" href="reportes.html">Reportes</a>
+      <a class="enlace" href="pagos.html">Pagos</a>
+      <a class="enlace" href="tarifas.html">Gestor de tarifas</a>
+      <a class="enlace" href="bitacoras.html">Bitácoras de usuarios</a>
+      <a class="enlace activo" href="especialidades.html">Especialidades médicas</a>
+    </nav>
+
+    <main class="principal">
+      <div class="tarjeta">
+        <h3>Especialidades</h3>
+        <div class="row g-3">
+          <div class="col-md-5"><input class="form-control" placeholder="Nombre de la especialidad"></div>
+          <div class="col-md-5"><input class="form-control" placeholder="Descripción"></div>
+          <div class="col-md-2"><input class="form-control" placeholder="Estatus (1/0)"></div>
+          <div class="col-12 d-flex gap-2">
+            <button class="btn btn-success" disabled>Guardar</button>
+            <button class="btn btn-outline-secondary" disabled>Cancelar</button>
+          </div>
+        </div>
+
+        <div class="table-responsive mt-3">
+          <table class="table">
+            <thead>
+              <tr><th>ID</th><th>Nombre</th><th>Descripción</th><th>Estatus</th><th>Acciones</th></tr>
+            </thead>
+            <tbody>
+              <tr><td colspan="5" class="text-center text-muted">Sin datos</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

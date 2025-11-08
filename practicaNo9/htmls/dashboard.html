@@ -8,15 +8,13 @@
   <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-  <!-- Encabezado -->
   <header class="encabezado">
     <div class="marca">MediLife</div>
     <div class="espacio"></div>
-    <div class="usuario"> <span id="textoUsuario">—</span></div>
-    <button id="botonSalir" class="btn btn-sm btn-outline-success">Cerrar sesión</button>
+    <div class="usuario">Emm</div>
+    <button class="btn btn-sm btn-outline-success">Cerrar sesión</button>
   </header>
 
-  <!-- Cuerpo con barra lateral + contenido -->
   <div class="contenedor">
     <nav class="barra-lateral">
       <div class="titulo">Menú</div>
@@ -27,24 +25,25 @@
       <a class="enlace" href="reportes.html">Reportes</a>
       <a class="enlace" href="pagos.html">Pagos</a>
       <a class="enlace" href="tarifas.html">Gestor de tarifas</a>
-      <a class="enlace" href="bitacoras.html">Bitácoras </a>
-      <a class="enlace" href="especialidades.html">Especialidades</a>
-      <a class="enlace" href="expediente.html">Expediente clínico</a>
+      <a class="enlace" href="bitacoras.html">Bitácoras de usuarios</a>
+      <a class="enlace" href="especialidades.html">Especialidades médicas</a>
     </nav>
 
     <main class="principal">
       <div class="tarjeta">
-        <h3 style="margin:0 0 8px">Bienvenido</h3>
-        <p class="text-muted" style="margin:0 0 14px">ñiñiñiñi.</p>
+        <h3>Bienvenido</h3>
+        <p class="text-muted">modongo.</p>
         <hr>
-        <p style="text-align:center; margin:18px 0; color:#6b7280">
-          ñiñiñiñ 
-        </p>
+        <div class="row g-3">
+          <div class="col-md-3"><div class="tarjeta">Pacientes: —</div></div>
+          <div class="col-md-3"><div class="tarjeta">Médicos: —</div></div>
+          <div class="col-md-3"><div class="tarjeta">Citas: —</div></div>
+          <div class="col-md-3"><div class="tarjeta">Ingresos: —</div></div>
+        </div>
       </div>
     </main>
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../js/sesion.js"></script>
 </body>
 </html>
