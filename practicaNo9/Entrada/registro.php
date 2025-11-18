@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     else {
         
         // Verificar si el correo ya existe
-        $sql_verificar = "SELECT IdUsuario FROM Usuarios WHERE Correo = ? LIMIT 1";
+        $sql_verificar = "SELECT IdUsuario FROM usuarios WHERE Correo = ? LIMIT 1";
         $stmt_verificar = $conexion->prepare($sql_verificar);
         $stmt_verificar->bind_param("s", $correo);
         $stmt_verificar->execute();
@@ -47,14 +47,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $tipo_mensaje = 'error';
         } else {
             
-                // Almacenar contraseña en texto plano (NO RECOMENDADO)
-                // Atención: esto guarda la contraseña tal cual en la base de datos.
+            // Almacenar contraseña en texto plano (NO RECOMENDADO)
+            // Atención: esto guarda la contraseña tal cual en la base de datos.
             
-                // Insertar nuevo usuario
-                $sql = "INSERT INTO Usuarios (Correo, Contrasena, Nombre, Rol, Activo, FechaCreacion) 
-                    VALUES (?, ?, ?, 'Recepcionista', 1, NOW())";
-            
-                $stmt = $conexion->prepare($sql);
+            // Insertar nuevo usuario
+            $sql = "INSERT INTO usuarios (Correo, Contrasena, Nombre, Rol, Activo, FechaCreacion) 
+                    VALUES (?, ?, ?, 'Recepcionista', 1, NOW())";                $stmt = $conexion->prepare($sql);
                 $stmt->bind_param("sss", $correo, $contrasena, $nombre);
             
             if ($stmt->execute()) {

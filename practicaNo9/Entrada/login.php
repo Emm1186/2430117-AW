@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         // Buscar usuario en la base de datos
         $sql = "SELECT IdUsuario, Correo, Contrasena, Nombre, Rol, Activo 
-                FROM Usuarios 
+                FROM usuarios 
                 WHERE Correo = ? 
                 LIMIT 1";
         
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['rol'] = $usuario['Rol'];
                 
                 // Actualizar último acceso
-                $sql_update = "UPDATE Usuarios SET UltimoAcceso = NOW() WHERE IdUsuario = ?";
+                $sql_update = "UPDATE usuarios SET UltimoAcceso = NOW() WHERE IdUsuario = ?";
                 $stmt_update = $conexion->prepare($sql_update);
                 $stmt_update->bind_param("i", $usuario['IdUsuario']);
                 $stmt_update->execute();

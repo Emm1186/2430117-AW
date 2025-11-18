@@ -40,13 +40,13 @@ if ($conexion->connect_error) {
     
     // 4) Verificar tabla usuarios
     echo "=== TABLA USUARIOS ===\n";
-    $r = $conexion->query("SELECT COUNT(*) AS total FROM Usuarios");
+    $r = $conexion->query("SELECT COUNT(*) AS total FROM usuarios");
     if ($r) {
         $f = $r->fetch_assoc();
         echo "Total usuarios: " . $f['total'] . "\n";
         
         // Mostrar usuarios
-        $usuarios = $conexion->query("SELECT IdUsuario, Correo, Nombre, Activo FROM Usuarios");
+        $usuarios = $conexion->query("SELECT IdUsuario, Correo, Nombre, Activo FROM usuarios");
         while ($u = $usuarios->fetch_assoc()) {
             echo "  - {$u['IdUsuario']}: {$u['Correo']} ({$u['Nombre']}) - Activo: {$u['Activo']}\n";
         }
