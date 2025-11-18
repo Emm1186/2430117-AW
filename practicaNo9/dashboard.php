@@ -18,13 +18,13 @@ $usuario_nombre = $_SESSION['nombre'] ?: $_SESSION['correo'];
 $usuario_rol = $_SESSION['rol'];
 
 // Obtener estadísticas
-$total_pacientes = $conexion->query("SELECT COUNT(*) as total FROM ControlPacientes WHERE Estatus = 1")->fetch_assoc()['total'];
-$total_medicos = $conexion->query("SELECT COUNT(*) as total FROM ControlMedico WHERE Estatus = 1")->fetch_assoc()['total'];
-$total_especialidades = $conexion->query("SELECT COUNT(*) as total FROM Especialidades")->fetch_assoc()['total'];
+$total_pacientes = $conexion->query("SELECT COUNT(*) as total FROM controlpacientes WHERE Estatus = 1")->fetch_assoc()['total'];
+$total_medicos = $conexion->query("SELECT COUNT(*) as total FROM controlmedico WHERE Estatus = 1")->fetch_assoc()['total'];
+$total_especialidades = $conexion->query("SELECT COUNT(*) as total FROM especialidades")->fetch_assoc()['total'];
 
 // Citas de hoy
 $hoy = date('Y-m-d');
-$sql_citas_hoy = "SELECT COUNT(*) as total FROM ControlAgenda 
+$sql_citas_hoy = "SELECT COUNT(*) as total FROM controlagenda 
                   WHERE DATE(FechaCita) = ? AND EstadoCita = 'Programada'";
 $stmt = $conexion->prepare($sql_citas_hoy);
 $stmt->bind_param("s", $hoy);
@@ -34,9 +34,9 @@ $citas_hoy = $stmt->get_result()->fetch_assoc()['total'];
 // Obtener próximas citas (5 más cercanas)
 $sql_proximas = "SELECT ca.IdCita, cp.NombreCompleto as Paciente, cm.NombreCompleto as Medico, 
                  ca.FechaCita, ca.MotivoConsulta
-                 FROM ControlAgenda ca
-                 INNER JOIN ControlPacientes cp ON ca.IdPaciente = cp.IdPaciente
-                 INNER JOIN ControlMedico cm ON ca.IdMedico = cm.IdMedico
+                 FROM controlagenda ca
+                 INNER JOIN controlpacientes cp ON ca.IdPaciente = cp.IdPaciente
+                 INNER JOIN controlmedico cm ON ca.IdMedico = cm.IdMedico
                  WHERE ca.FechaCita >= NOW() AND ca.EstadoCita = 'Programada'
                  ORDER BY ca.FechaCita ASC
                  LIMIT 5";

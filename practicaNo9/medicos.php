@@ -34,7 +34,7 @@ $medico_editar = null;
 if (isset($_GET['eliminar'])) {
     $id_eliminar = intval($_GET['eliminar']);
     
-    $sql_eliminar = "UPDATE ControlMedico SET Estatus = 0 WHERE IdMedico = ?";
+    $sql_eliminar = "UPDATE controlmedico SET Estatus = 0 WHERE IdMedico = ?";
     $stmt = $conexion->prepare($sql_eliminar);
     $stmt->bind_param("i", $id_eliminar);
     
@@ -52,7 +52,7 @@ if (isset($_GET['eliminar'])) {
 if (isset($_GET['editar'])) {
     $id_editar = intval($_GET['editar']);
     
-    $sql_editar = "SELECT * FROM ControlMedico WHERE IdMedico = ?";
+    $sql_editar = "SELECT * FROM controlmedico WHERE IdMedico = ?";
     $stmt = $conexion->prepare($sql_editar);
     $stmt->bind_param("i", $id_editar);
     $stmt->execute();
@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['guardar'])) {
         
         if ($id_medico > 0) {
             // ACTUALIZAR
-            $sql = "UPDATE ControlMedico SET 
+            $sql = "UPDATE controlmedico SET 
                     NombreCompleto = ?, CedulaProfesional = ?, EspecialidadId = ?,
                     Telefono = ?, CorreoElectronico = ?, HorarioAtencion = ?, Estatus = ?
                     WHERE IdMedico = ?";
@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['guardar'])) {
             
         } else {
             // CREAR NUEVO
-            $sql = "INSERT INTO ControlMedico (NombreCompleto, CedulaProfesional, EspecialidadId, Telefono, CorreoElectronico, HorarioAtencion, Estatus)
+            $sql = "INSERT INTO controlmedico (NombreCompleto, CedulaProfesional, EspecialidadId, Telefono, CorreoElectronico, HorarioAtencion, Estatus)
                     VALUES (?, ?, ?, ?, ?, ?, ?)";
             $stmt = $conexion->prepare($sql);
             $stmt->bind_param("ssisssi", $nombre, $cedula, $especialidad_id, $telefono, $correo, $horario, $estatus);
@@ -112,13 +112,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['guardar'])) {
 // ========================================
 
 $sql_medicos = "SELECT m.*, e.NombreEspecialidad 
-                FROM ControlMedico m
-                INNER JOIN Especialidades e ON m.EspecialidadId = e.IdEspecialidad
+                FROM controlmedico m
+                INNER JOIN especialidades e ON m.EspecialidadId = e.IdEspecialidad
                 WHERE m.Estatus = 1
                 ORDER BY m.IdMedico DESC";
 $resultado_medicos = $conexion->query($sql_medicos);
 
-$sql_especialidades = "SELECT * FROM Especialidades ORDER BY NombreEspecialidad";
+$sql_especialidades = "SELECT * FROM especialidades ORDER BY NombreEspecialidad";
 $resultado_especialidades = $conexion->query($sql_especialidades);
 
 $conexion->close();
