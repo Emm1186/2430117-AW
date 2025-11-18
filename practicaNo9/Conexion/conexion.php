@@ -9,8 +9,8 @@ session_start();
 
 // Datos de conexión
 $servidor = "localhost";
-$usuario = "root";
-$password = "";
+$usuario = "sectoruser";
+$password = "TuPasswordFuerteAqui!";
 $base_datos = "sector404";
 
 // Crear conexión
