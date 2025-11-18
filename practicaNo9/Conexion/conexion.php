@@ -10,7 +10,7 @@ session_start();
 // Datos de conexión
 $servidor = "localhost";
 $usuario = "root";
-$password = "Ayanami01";
+$password = "";
 $base_datos = "sector404";
 
 // Crear conexión

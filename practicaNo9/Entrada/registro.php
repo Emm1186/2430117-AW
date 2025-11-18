@@ -47,15 +47,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $tipo_mensaje = 'error';
         } else {
             
-            // Encriptar contraseña
-            $contrasena_hash = password_hash($contrasena, PASSWORD_DEFAULT);
+                // Almacenar contraseña en texto plano (NO RECOMENDADO)
+                // Atención: esto guarda la contraseña tal cual en la base de datos.
             
-            // Insertar nuevo usuario
-            $sql = "INSERT INTO Usuarios (Correo, Contrasena, Nombre, Rol, Activo, FechaCreacion) 
+                // Insertar nuevo usuario
+                $sql = "INSERT INTO Usuarios (Correo, Contrasena, Nombre, Rol, Activo, FechaCreacion) 
                     VALUES (?, ?, ?, 'Recepcionista', 1, NOW())";
             
-            $stmt = $conexion->prepare($sql);
-            $stmt->bind_param("sss", $correo, $contrasena_hash, $nombre);
+                $stmt = $conexion->prepare($sql);
+                $stmt->bind_param("sss", $correo, $contrasena, $nombre);
             
             if ($stmt->execute()) {
                 $mensaje = 'Cuenta creada exitosamente. Redirigiendo...';

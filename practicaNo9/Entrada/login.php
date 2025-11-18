@@ -43,8 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $mensaje = 'Tu cuenta está inactiva. Contacta al administrador';
                 $tipo_mensaje = 'error';
             } 
-            // Verificar contraseña
-            else if (password_verify($contrasena, $usuario['Contrasena'])) {
+            // Verificar contraseña (comparación en texto plano)
+            else if ($contrasena === $usuario['Contrasena']) {
                 
                 // ¡Login exitoso! Crear sesión
                 $_SESSION['usuario_id'] = $usuario['IdUsuario'];
