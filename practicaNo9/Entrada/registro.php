@@ -14,11 +14,14 @@ $tipo_mensaje = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Obtener datos del formulario
-    $nombre = limpiar_dato($_POST['nombre']);
-    $correo = limpiar_dato($_POST['correo']);
-    $contrasena = $_POST['contrasena'];
+    // Nota: aquí usamos funciones simples para limpiar entradas
+    // Esto es intencionalmente sencillo para quien está aprendiendo PHP
+    $nombre = isset($_POST['nombre']) ? limpiar_dato($_POST['nombre']) : '';
+    $correo = isset($_POST['correo']) ? limpiar_dato($_POST['correo']) : '';
+    $contrasena = isset($_POST['contrasena']) ? $_POST['contrasena'] : '';
     
     // Validar que no estén vacíos
+    // Validación básica: campos obligatorios
     if (empty($correo) || empty($contrasena)) {
         $mensaje = 'El correo y la contraseña son obligatorios';
         $tipo_mensaje = 'error';
@@ -35,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     else {
         
-        // Verificar si el correo ya existe
+        // Verificar si el correo ya existe (ejecutamos una consulta simple)
         $sql_verificar = "SELECT IdUsuario FROM usuarios WHERE Correo = ? LIMIT 1";
         $stmt_verificar = $conexion->prepare($sql_verificar);
         $stmt_verificar->bind_param("s", $correo);
@@ -47,12 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $tipo_mensaje = 'error';
         } else {
             
-            // Almacenar contraseña en texto plano (NO RECOMENDADO)
-            // Atención: esto guarda la contraseña tal cual en la base de datos.
+                // Almacenar contraseña en texto plano (NO RECOMENDADO)
+                // Atención: esto guarda la contraseña tal cual en la base de datos.
+                // Esta implementación es para aprendizaje y así lo solicitó el usuario.
             
-            // Insertar nuevo usuario
-            $sql = "INSERT INTO usuarios (Correo, Contrasena, Nombre, Rol, Activo, FechaCreacion) 
-                    VALUES (?, ?, ?, 'Recepcionista', 1, NOW())";                $stmt = $conexion->prepare($sql);
+                // Insertar nuevo usuario (consulta preparada)
+                $sql = "INSERT INTO usuarios (Correo, Contrasena, Nombre, Rol, Activo, FechaCreacion) 
+                    VALUES (?, ?, ?, 'Recepcionista', 1, NOW())";
+                $stmt = $conexion->prepare($sql);
                 $stmt->bind_param("sss", $correo, $contrasena, $nombre);
             
             if ($stmt->execute()) {

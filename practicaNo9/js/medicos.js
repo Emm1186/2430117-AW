@@ -1,6 +1,7 @@
 /**
  * MEDICOS.JS - SECTOR 404
  * Funcionalidades para el módulo de médicos
+ * Comentarios y estilo sencillos para quien está aprendiendo JavaScript
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -15,6 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
     animarTabla();
     
 });
+
+// Si CRUD está deshabilitado en el servidor, mantener la variable en false
+// Usamos 'var' para que sea más familiar para principiantes
+var CRUD_ENABLED = false;
 
 /**
  * Configurar búsqueda en tiempo real en la tabla
@@ -172,12 +177,16 @@ if (inputTelefono) {
 /**
  * Confirmar eliminación con mensaje personalizado
  */
-document.querySelectorAll('.btn-eliminar').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        const nombreMedico = this.closest('tr').querySelector('td:nth-child(2)').textContent;
-        
-        if (!confirm(`¿Estás seguro de eliminar al Dr(a). ${nombreMedico}?\n\nEsta acción no se puede deshacer.`)) {
-            e.preventDefault();
-        }
-    });
+// Interceptar acciones CRUD en la UI. Si CRUD no está activo, mostramos una notificación.
+document.addEventListener('click', function(e) {
+    const target = e.target.closest('.crud-eliminar, .crud-editar');
+    if (!target) return;
+    if (!CRUD_ENABLED) {
+        e.preventDefault();
+        const id = target.getAttribute('data-id');
+        const accion = target.classList.contains('crud-eliminar') ? 'eliminar' : 'editar';
+        mostrarAlerta(`CRUD deshabilitado (demo). Acción: ${accion} ; Id: ${id}`, 'warning');
+        return false;
+    }
+    // Si CRUD_ENABLED == true, las acciones pueden enviar formularios o navegar.
 });

@@ -12,15 +12,37 @@ if (!sesion_activa()) {
     exit;
 }
 
-// Obtener información del usuario
+// Obtener información del usuario (forma sencilla para principiantes)
 $usuario_id = $_SESSION['usuario_id'];
-$usuario_nombre = $_SESSION['nombre'] ?: $_SESSION['correo'];
-$usuario_rol = $_SESSION['rol'];
+$usuario_nombre = '';
+if (isset($_SESSION['nombre']) && !empty($_SESSION['nombre'])) {
+    $usuario_nombre = $_SESSION['nombre'];
+} else if (isset($_SESSION['correo'])) {
+    $usuario_nombre = $_SESSION['correo'];
+}
+$usuario_rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
 
-// Obtener estadísticas
-$total_pacientes = $conexion->query("SELECT COUNT(*) as total FROM controlpacientes WHERE Estatus = 1")->fetch_assoc()['total'];
-$total_medicos = $conexion->query("SELECT COUNT(*) as total FROM controlmedico WHERE Estatus = 1")->fetch_assoc()['total'];
-$total_especialidades = $conexion->query("SELECT COUNT(*) as total FROM especialidades")->fetch_assoc()['total'];
+// Obtener estadísticas de forma clara: ejecutar la consulta y comprobar resultado
+$total_pacientes = 0;
+$res = $conexion->query("SELECT COUNT(*) as total FROM controlpacientes WHERE Estatus = 1");
+if ($res) {
+    $fila = $res->fetch_assoc();
+    $total_pacientes = isset($fila['total']) ? $fila['total'] : 0;
+}
+
+$total_medicos = 0;
+$res = $conexion->query("SELECT COUNT(*) as total FROM controlmedico WHERE Estatus = 1");
+if ($res) {
+    $fila = $res->fetch_assoc();
+    $total_medicos = isset($fila['total']) ? $fila['total'] : 0;
+}
+
+$total_especialidades = 0;
+$res = $conexion->query("SELECT COUNT(*) as total FROM especialidades");
+if ($res) {
+    $fila = $res->fetch_assoc();
+    $total_especialidades = isset($fila['total']) ? $fila['total'] : 0;
+}
 
 // Citas de hoy
 $hoy = date('Y-m-d');
@@ -29,7 +51,7 @@ $sql_citas_hoy = "SELECT COUNT(*) as total FROM controlagenda
 $stmt = $conexion->prepare($sql_citas_hoy);
 $stmt->bind_param("s", $hoy);
 $stmt->execute();
-$citas_hoy = $stmt->get_result()->fetch_assoc()['total'];
+$citas_hoy = ($stmt->get_result()->fetch_assoc()['total']) ?? 0;
 
 // Obtener próximas citas (5 más cercanas)
 $sql_proximas = "SELECT ca.IdCita, cp.NombreCompleto as Paciente, cm.NombreCompleto as Medico, 
@@ -42,7 +64,7 @@ $sql_proximas = "SELECT ca.IdCita, cp.NombreCompleto as Paciente, cm.NombreCompl
                  LIMIT 5";
 $resultado_citas = $conexion->query($sql_proximas);
 
-$conexion->close();
+// La conexión se cerrará al final del flujo (partial footer puede necesitarla)
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -55,36 +77,34 @@ $conexion->close();
 </head>
 <body>
 
-    <!-- Header con menú -->
     <header class="encabezado">
         <div class="marca">🏥 Sector 404</div>
         <div class="espacio"></div>
         <div class="usuario">
-            👤 <?php echo htmlspecialchars($usuario_nombre); ?>
-            <span class="badge bg-secondary ms-2"><?php echo $usuario_rol; ?></span>
-        </div>
-        <a href="Entrada/logout.php" class="btn btn-sm btn-outline-danger">Cerrar sesión</a>
-    </header>
-
-    <div class="contenedor">
-        <!-- Sidebar -->
-        <nav class="barra-lateral">
-            <div class="titulo">📋 Menú</div>
-            <a class="enlace activo" href="dashboard.php">🏠 Inicio</a>
-            <a class="enlace" href="pacientes.php">👥 Control de pacientes</a>
-            <a class="enlace" href="agenda.php">📅 Control de agenda</a>
-            <a class="enlace" href="medicos.php">👨‍⚕️ Control de médicos</a>
-            <a class="enlace" href="especialidades.php">🩺 Especialidades médicas</a>
-            <a class="enlace" href="tarifas.php">💰 Gestor de tarifas</a>
-            <a class="enlace" href="pagos.php">💳 Pagos</a>
-            <a class="enlace" href="reportes.php">📊 Reportes</a>
-            
-            <?php if ($usuario_rol == 'Admin'): ?>
-            <hr style="margin: 15px 0; border-color: #ddd;">
-            <div class="titulo">⚙️ Administración</div>
-            <a class="enlace" href="bitacoras.php">📝 Bitácoras</a>
+            <?php if (!empty($usuario_nombre)): ?>
+                👤 <?php echo htmlspecialchars($usuario_nombre); ?>
+                <span class="badge bg-secondary ms-2"><?php echo htmlspecialchars($usuario_rol); ?></span>
             <?php endif; ?>
-        </nav>
+        </div>
+        <?php if (!empty($usuario_nombre)): ?>
+            <a href="Entrada/logout.php" class="btn btn-sm btn-outline-danger">Cerrar sesión</a>
+        <?php endif; ?>
+    </header>
+    <div class="contenedor">
+    <nav class="barra-lateral">
+        <div class="titulo"> Menú</div>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'dashboard.php') ? ' activo' : ''; ?>" href="dashboard.php">🏠 Inicio</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'pacientes.php') ? ' activo' : ''; ?>" href="pacientes.php">👥 Control de pacientes</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'agenda.php') ? ' activo' : ''; ?>" href="agenda.php">📅 Control de agenda</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'medicos.php') ? ' activo' : ''; ?>" href="medicos.php">👨‍⚕️ Control de médicos</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'especialidades.php') ? ' activo' : ''; ?>" href="especialidades.php">🩺 Especialidades médicas</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'tarifas.php') ? ' activo' : ''; ?>" href="tarifas.php">💰 Gestor de tarifas</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'pagos.php') ? ' activo' : ''; ?>" href="pagos.php">💳 Pagos</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'reportes.php') ? ' activo' : ''; ?>" href="reportes.php">📊 Reportes</a>
+        <hr style="margin: 15px 0; border-color: #ddd;">
+        <div class="titulo">⚙️ Administración</div>
+        <a class="enlace" href="bitacoras.php">📝 Bitácoras</a>
+    </nav>
 
         <!-- Contenido principal -->
         <main class="principal">
@@ -205,7 +225,10 @@ $conexion->close();
         </main>
     </div>
 
+    <footer style="display:none;"><!-- Footer placeholder if needed --></footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="js/dashboard.js"></script>
+    <script src="js/medicos.js"></script>
 </body>
 </html>

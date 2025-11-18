@@ -12,9 +12,14 @@ if (!sesion_activa()) {
     exit;
 }
 
-// Obtener información del usuario
-$usuario_nombre = $_SESSION['nombre'] ?: $_SESSION['correo'];
-$usuario_rol = $_SESSION['rol'];
+// Obtener información del usuario (forma sencilla y explícita)
+$usuario_nombre = '';
+if (isset($_SESSION['nombre']) && !empty($_SESSION['nombre'])) {
+    $usuario_nombre = $_SESSION['nombre'];
+} else if (isset($_SESSION['correo'])) {
+    $usuario_nombre = $_SESSION['correo'];
+}
+$usuario_rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
 
 // Solo Admin puede acceder
 if ($usuario_rol != 'Admin') {
@@ -25,13 +30,21 @@ if ($usuario_rol != 'Admin') {
 $mensaje = '';
 $tipo_mensaje = '';
 $medico_editar = null;
+// Habilitar o deshabilitar ejecución real del CRUD (false = solo interfaz)
+// Habilitar el CRUD para pruebas (solo los módulos solicitados)
+$ENABLE_CRUD = true; // Cambiado a true para permitir crear/editar/eliminar médicos
+
+if (!$ENABLE_CRUD) {
+    $mensaje = 'Modo demo: las operaciones CRUD están deshabilitadas en esta versión. La interfaz está disponible para diseño y pruebas visuales.';
+    $tipo_mensaje = 'warning';
+}
 
 // ========================================
 // PROCESAR ACCIONES (Crear, Editar, Eliminar)
 // ========================================
 
-// ELIMINAR MÉDICO
-if (isset($_GET['eliminar'])) {
+// ELIMINAR MÉDICO (pendiente si $ENABLE_CRUD == false)
+if ($ENABLE_CRUD && isset($_GET['eliminar'])) {
     $id_eliminar = intval($_GET['eliminar']);
     
     $sql_eliminar = "UPDATE controlmedico SET Estatus = 0 WHERE IdMedico = ?";
@@ -48,8 +61,8 @@ if (isset($_GET['eliminar'])) {
     $stmt->close();
 }
 
-// CARGAR DATOS PARA EDITAR
-if (isset($_GET['editar'])) {
+// CARGAR DATOS PARA EDITAR (pendiente si $ENABLE_CRUD == false)
+if ($ENABLE_CRUD && isset($_GET['editar'])) {
     $id_editar = intval($_GET['editar']);
     
     $sql_editar = "SELECT * FROM controlmedico WHERE IdMedico = ?";
@@ -60,8 +73,8 @@ if (isset($_GET['editar'])) {
     $stmt->close();
 }
 
-// GUARDAR (Crear o Actualizar)
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['guardar'])) {
+// GUARDAR (Crear o Actualizar) - pendiente si $ENABLE_CRUD == false
+if ($ENABLE_CRUD && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['guardar'])) {
     
     $id_medico = isset($_POST['id_medico']) ? intval($_POST['id_medico']) : 0;
     $nombre = limpiar_dato($_POST['nombre']);
@@ -139,28 +152,30 @@ $conexion->close();
         <div class="marca">🏥 Sector 404</div>
         <div class="espacio"></div>
         <div class="usuario">
-            👤 <?php echo htmlspecialchars($usuario_nombre); ?>
-            <span class="badge bg-secondary ms-2"><?php echo $usuario_rol; ?></span>
+            <?php if (!empty($usuario_nombre)): ?>
+                👤 <?php echo htmlspecialchars($usuario_nombre); ?>
+                <span class="badge bg-secondary ms-2"><?php echo htmlspecialchars($usuario_rol); ?></span>
+            <?php endif; ?>
         </div>
-        <a href="Entrada/logout.php" class="btn btn-sm btn-outline-danger">Cerrar sesión</a>
+        <?php if (!empty($usuario_nombre)): ?>
+            <a href="Entrada/logout.php" class="btn btn-sm btn-outline-danger">Cerrar sesión</a>
+        <?php endif; ?>
     </header>
-
     <div class="contenedor">
-        <!-- Sidebar -->
-        <nav class="barra-lateral">
-            <div class="titulo">📋 Menú</div>
-            <a class="enlace" href="dashboard.php">🏠 Inicio</a>
-            <a class="enlace" href="pacientes.php">👥 Control de pacientes</a>
-            <a class="enlace" href="agenda.php">📅 Control de agenda</a>
-            <a class="enlace activo" href="medicos.php">👨‍⚕️ Control de médicos</a>
-            <a class="enlace" href="especialidades.php">🩺 Especialidades médicas</a>
-            <a class="enlace" href="tarifas.php">💰 Gestor de tarifas</a>
-            <a class="enlace" href="pagos.php">💳 Pagos</a>
-            <a class="enlace" href="reportes.php">📊 Reportes</a>
-            <hr style="margin: 15px 0; border-color: #ddd;">
-            <div class="titulo">⚙️ Administración</div>
-            <a class="enlace" href="bitacoras.php">📝 Bitácoras</a>
-        </nav>
+    <nav class="barra-lateral">
+        <div class="titulo"> Menú</div>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'dashboard.php') ? ' activo' : ''; ?>" href="dashboard.php">🏠 Inicio</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'pacientes.php') ? ' activo' : ''; ?>" href="pacientes.php">👥 Control de pacientes</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'agenda.php') ? ' activo' : ''; ?>" href="agenda.php">📅 Control de agenda</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'medicos.php') ? ' activo' : ''; ?>" href="medicos.php">👨‍⚕️ Control de médicos</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'especialidades.php') ? ' activo' : ''; ?>" href="especialidades.php">🩺 Especialidades médicas</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'tarifas.php') ? ' activo' : ''; ?>" href="tarifas.php">💰 Gestor de tarifas</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'pagos.php') ? ' activo' : ''; ?>" href="pagos.php">💳 Pagos</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'reportes.php') ? ' activo' : ''; ?>" href="reportes.php">📊 Reportes</a>
+        <hr style="margin: 15px 0; border-color: #ddd;">
+        <div class="titulo">⚙️ Administración</div>
+        <a class="enlace" href="bitacoras.php">📝 Bitácoras</a>
+    </nav>
 
         <!-- Contenido principal -->
         <main class="principal">
@@ -292,14 +307,13 @@ $conexion->close();
                                     <td><?php echo htmlspecialchars($medico['CorreoElectronico']); ?></td>
                                     <td><?php echo htmlspecialchars($medico['HorarioAtencion']); ?></td>
                                     <td>
-                                        <a href="?editar=<?php echo $medico['IdMedico']; ?>" class="btn btn-sm btn-warning" title="Editar">
-                                            
+                                        <a href="#" data-id="<?php echo $medico['IdMedico']; ?>" class="btn btn-sm btn-warning crud-editar" title="Editar">
+                                            Editar
                                         </a>
-                                        <a href="?eliminar=<?php echo $medico['IdMedico']; ?>" 
-                                           class="btn btn-sm btn-danger btn-eliminar" 
-                                           title="Eliminar"
-                                           onclick="return confirm('¿Estás seguro de eliminar este médico?')">
-                                            
+                                        <a href="#" data-id="<?php echo $medico['IdMedico']; ?>" 
+                                           class="btn btn-sm btn-danger crud-eliminar" 
+                                           title="Eliminar">
+                                            Eliminar
                                         </a>
                                     </td>
                                 </tr>
@@ -317,7 +331,10 @@ $conexion->close();
         </main>
     </div>
 
+    <footer style="display:none;"><!-- Footer placeholder if needed --></footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/dashboard.js"></script>
     <script src="js/medicos.js"></script>
 </body>
 </html>

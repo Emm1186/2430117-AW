@@ -14,8 +14,9 @@ $tipo_mensaje = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Obtener datos del formulario
-    $correo = limpiar_dato($_POST['correo']);
-    $contrasena = $_POST['contrasena'];
+    // Usamos isset para evitar avisos si la variable no viene
+    $correo = isset($_POST['correo']) ? limpiar_dato($_POST['correo']) : '';
+    $contrasena = isset($_POST['contrasena']) ? $_POST['contrasena'] : '';
     
     // Validar que no estén vacíos
     if (empty($correo) || empty($contrasena)) {
@@ -38,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($resultado->num_rows == 1) {
             $usuario = $resultado->fetch_assoc();
             
-            // Verificar si está activo
+            // Verificar si está activo (0 = inactivo)
             if ($usuario['Activo'] == 0) {
                 $mensaje = 'Tu cuenta está inactiva. Contacta al administrador';
                 $tipo_mensaje = 'error';
@@ -65,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt_bitacora->bind_param("i", $usuario['IdUsuario']);
                 $stmt_bitacora->execute();
                 
-                // Redirigir al dashboard
+                // Redirigir al dashboard (archivo en la carpeta padre)
                 header('Location: ../dashboard.php');
                 exit;
                 
