@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt_update->execute();
                 
                 // Registrar en bitácora
-                $sql_bitacora = "INSERT INTO BitacoraAcceso (IdUsuario, AccionRealizada, Modulo) 
+                $sql_bitacora = "INSERT INTO bitacoraacceso (IdUsuario, AccionRealizada, Modulo) 
                                  VALUES (?, 'Inicio de sesión', 'Login')";
                 $stmt_bitacora = $conexion->prepare($sql_bitacora);
                 $stmt_bitacora->bind_param("i", $usuario['IdUsuario']);
