@@ -55,8 +55,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Esta implementación es para aprendizaje y así lo solicitó el usuario.
             
                 // Insertar nuevo usuario (consulta preparada)
+                // Nota: se asigna el rol 'Admin' por defecto según la solicitud
                 $sql = "INSERT INTO usuarios (Correo, Contrasena, Nombre, Rol, Activo, FechaCreacion) 
-                    VALUES (?, ?, ?, 'Recepcionista', 1, NOW())";
+                    VALUES (?, ?, ?, 'Admin', 1, NOW())";
                 $stmt = $conexion->prepare($sql);
                 $stmt->bind_param("sss", $correo, $contrasena, $nombre);
             
