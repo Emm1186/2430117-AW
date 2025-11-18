@@ -115,6 +115,13 @@ $resultado_citas = $conexion->query($sql_proximas);
                 <p class="mb-0 opacity-75">Panel de control - Sistema de Gestión Médica</p>
             </div>
 
+            <!-- Aviso si usuario fue redirigido por falta de permisos -->
+            <?php if (isset($_GET['noaccess'])): ?>
+            <div class="alert alert-warning" role="alert">
+                No tienes permisos para acceder al módulo solicitado. Si crees que esto es un error, contacta al administrador.
+            </div>
+            <?php endif; ?>
+
             <!-- Tarjetas de estadísticas -->
             <div class="row g-4 mb-4">
                 
@@ -205,7 +212,7 @@ $resultado_citas = $conexion->query($sql_proximas);
                             👤 Nuevo Paciente
                         </a>
                         
-                        <?php if ($usuario_rol == 'Admin'): ?>
+                        <?php if (in_array($usuario_rol, array('Admin','Secretaria'))): ?>
                         <a href="medicos.php" class="quick-btn text-decoration-none">
                             👨‍⚕️ Nuevo Médico
                         </a>

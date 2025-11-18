@@ -21,11 +21,15 @@ if (isset($_SESSION['nombre']) && !empty($_SESSION['nombre'])) {
 }
 $usuario_rol = isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
 
-// Solo Admin puede acceder
-if ($usuario_rol != 'Admin') {
-    header('Location: dashboard.php');
+// Control de acceso por roles: permitir solo ciertos roles para gestionar médicos.
+// Roles permitidos: 'Admin' y 'Secretaria'. Si el usuario no tiene permiso,
+// lo redirigimos al dashboard con un indicador para mostrar un aviso.
+$roles_permitidos = array('Admin', 'Secretaria');
+if (!in_array($usuario_rol, $roles_permitidos)) {
+    header('Location: dashboard.php?noaccess=1');
     exit;
 }
+
 
 $mensaje = '';
 $tipo_mensaje = '';
@@ -307,11 +311,12 @@ $conexion->close();
                                     <td><?php echo htmlspecialchars($medico['CorreoElectronico']); ?></td>
                                     <td><?php echo htmlspecialchars($medico['HorarioAtencion']); ?></td>
                                     <td>
-                                        <a href="#" data-id="<?php echo $medico['IdMedico']; ?>" class="btn btn-sm btn-warning crud-editar" title="Editar">
+                                        <a href="medicos.php?editar=<?php echo $medico['IdMedico']; ?>" class="btn btn-sm btn-warning" title="Editar">
                                             Editar
                                         </a>
-                                        <a href="#" data-id="<?php echo $medico['IdMedico']; ?>" 
-                                           class="btn btn-sm btn-danger crud-eliminar" 
+                                        <a href="medicos.php?eliminar=<?php echo $medico['IdMedico']; ?>" 
+                                           onclick="return confirm('¿Confirmar eliminación del médico?');"
+                                           class="btn btn-sm btn-danger" 
                                            title="Eliminar">
                                             Eliminar
                                         </a>
