@@ -55,19 +55,45 @@ if ($conexion->connect_error) {
     }
     echo "\n";
     
-    // 5) Verificar tabla BitacoraAcceso
-    echo "=== TABLA BitacoraAcceso ===\n";
-    $r = $conexion->query("SELECT COUNT(*) AS total FROM BitacoraAcceso");
-    if ($r) {
-        $f = $r->fetch_assoc();
-        echo "Total registros: " . $f['total'] . "\n";
+    // 5) Listar todas las tablas disponibles
+    echo "=== TABLAS DISPONIBLES ===\n";
+    $tablas = $conexion->query("SHOW TABLES");
+    if ($tablas) {
+        $nombres_tablas = [];
+        while ($t = $tablas->fetch_row()) {
+            echo "  - {$t[0]}\n";
+            $nombres_tablas[] = strtolower($t[0]);
+        }
+        echo "\n";
+        
+        // 6) Verificar tabla bitacora (con nombre flexible)
+        echo "=== TABLA BITÁCORA ===\n";
+        $tabla_bitacora = null;
+        foreach ($nombres_tablas as $t) {
+            if (strpos($t, 'bitacora') !== false || strpos($t, 'bitácora') !== false) {
+                $tabla_bitacora = $t;
+                break;
+            }
+        }
+        
+        if ($tabla_bitacora) {
+            $r = $conexion->query("SELECT COUNT(*) AS total FROM " . $tabla_bitacora);
+            if ($r) {
+                $f = $r->fetch_assoc();
+                echo "Total registros en '{$tabla_bitacora}': " . $f['total'] . "\n";
+            } else {
+                echo "❌ Error: " . $conexion->error . "\n";
+            }
+        } else {
+            echo "⚠️ No se encontró tabla de bitácora.\n";
+        }
     } else {
-        echo "❌ Error: " . $conexion->error . "\n";
+        echo "❌ Error listando tablas: " . $conexion->error . "\n";
     }
     echo "\n";
 }
 
-// 6) Verificar archivos críticos
+// 7) Verificar archivos críticos
 echo "=== ARCHIVOS CRÍTICOS ===\n";
 $archivos = [
     'Conexion/conexion.php' => __DIR__ . '/Conexion/conexion.php',
