@@ -6,6 +6,9 @@
 
 require_once 'Conexion/conexion.php';
 
+// Verificar permisos (Solo Admin y Secretaria)
+verificar_acceso(['Admin', 'Secretaria']);
+
 if (!sesion_activa()) {
     header('Location: Entrada/login.php');
     exit;

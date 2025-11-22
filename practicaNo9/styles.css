@@ -9,7 +9,8 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     height: 100%;
 }
 
@@ -193,7 +194,7 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -277,7 +278,7 @@ body {
     background: white;
     border-radius: 15px;
     padding: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     margin-bottom: 20px;
 }
 
@@ -289,7 +290,7 @@ body {
     background: white;
     border-radius: 15px;
     padding: 25px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
     overflow: hidden;
@@ -297,7 +298,7 @@ body {
 
 .stat-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .stat-number {
@@ -349,7 +350,7 @@ body {
     background: white;
     border-radius: 15px;
     padding: 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 .quick-access h5 {
@@ -428,14 +429,16 @@ body {
    FORMULARIOS
    ============================================ */
 
-.form-control, .form-select {
+.form-control,
+.form-select {
     border-radius: 8px;
     border: 2px solid #e9ecef;
     padding: 12px 15px;
     transition: all 0.3s;
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
     border-color: #667eea;
     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
 }
@@ -465,24 +468,24 @@ body {
     .contenedor {
         grid-template-columns: 1fr;
     }
-    
+
     .barra-lateral {
         display: none;
     }
-    
+
     .principal {
         padding: 15px;
     }
-    
+
     .tarjeta-auth {
         padding: 30px 25px;
         max-width: 90%;
     }
-    
+
     .tarjeta-auth h1 {
         font-size: 2rem;
     }
-    
+
     .stat-card {
         margin-bottom: 15px;
     }
@@ -500,12 +503,29 @@ body {
     opacity: 0.75;
 }
 
-.mb-0 { margin-bottom: 0 !important; }
-.mb-2 { margin-bottom: 0.5rem !important; }
-.mb-3 { margin-bottom: 1rem !important; }
-.mb-4 { margin-bottom: 1.5rem !important; }
-.mt-2 { margin-top: 0.5rem !important; }
-.mt-3 { margin-top: 1rem !important; }
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem !important;
+}
+
+.mb-3 {
+    margin-bottom: 1rem !important;
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.mt-2 {
+    margin-top: 0.5rem !important;
+}
+
+.mt-3 {
+    margin-top: 1rem !important;
+}
 
 .text-center {
     text-align: center !important;
@@ -612,16 +632,16 @@ body {
 /* Tabla responsiva mejorada */
 .table-responsive {
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .table thead {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: #e9ecef;
 }
 
 .table thead th {
-    color: white !important;
-    font-weight: 700;
+    color: #343a40 !important;
+    font-weight: 800;
     border: none;
     padding: 15px;
     text-transform: uppercase;
@@ -641,7 +661,7 @@ body {
 
 .table tbody tr:hover {
     background-color: #f8f9fa;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .table tbody tr:last-child td {
@@ -654,7 +674,7 @@ body {
     border: none;
     padding: 15px 20px;
     font-weight: 600;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     animation: slideDown 0.3s ease;
 }
 
@@ -663,6 +683,7 @@ body {
         opacity: 0;
         transform: translateY(-20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -717,6 +738,7 @@ body {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -732,7 +754,7 @@ body {
     .table thead {
         display: none;
     }
-    
+
     .table tbody tr {
         display: block;
         margin-bottom: 15px;
@@ -740,17 +762,81 @@ body {
         border-radius: 8px;
         padding: 10px;
     }
-    
+
     .table tbody td {
         display: flex;
         justify-content: space-between;
         padding: 8px;
         border: none;
     }
-    
+
     .table tbody td::before {
         content: attr(data-label);
         font-weight: 700;
         margin-right: 10px;
     }
+}
+
+/* ============================================
+   ESTILOS CALENDARIO (AGENDA)
+   ============================================ */
+.calendario-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 20px;
+}
+
+.dia-semana {
+    text-align: center;
+    font-weight: bold;
+    background: #e9ecef;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.dia-mes {
+    background: white;
+    border: 1px solid #dee2e6;
+    min-height: 100px;
+    padding: 5px;
+    border-radius: 5px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.dia-mes:hover {
+    background-color: #f8f9fa;
+}
+
+.dia-mes.hoy {
+    background-color: #e8f4fd;
+    border-color: #667eea;
+}
+
+.numero-dia {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.evento-chip {
+    background-color: #667eea;
+    color: white;
+    font-size: 0.75rem;
+    padding: 2px 5px;
+    border-radius: 3px;
+    margin-bottom: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.controles-mes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
 }
