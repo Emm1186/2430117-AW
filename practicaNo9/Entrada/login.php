@@ -1,9 +1,4 @@
 <?php
-/**
- * LOGIN - SECTOR 404
- * Sistema de inicio de sesión con base de datos
- */
-
 require_once '../Conexion/conexion.php';
 
 // Variables para mensajes
@@ -47,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Verificar contraseña (comparación en texto plano)
             else if ($contrasena === $usuario['Contrasena']) {
                 
-                // ¡Login exitoso! Crear sesión
+                // si es exictoso inicia sesion
                 $_SESSION['usuario_id'] = $usuario['IdUsuario'];
                 $_SESSION['correo'] = $usuario['Correo'];
                 $_SESSION['nombre'] = $usuario['Nombre'];
@@ -139,10 +134,12 @@ $conexion->close();
                 
             </form>
             
-            <!-- Enlace a registro -->
+            <!-- Aquí est el enlace a registro -->
             <p class="enlace-cambio">
-                No tienes cuenta? <a href="registro.php">Crear cuenta</a>
+                No tienes cuenta? <a href="registro.php">Crear cuenta Usuario</a>
             </p>
+            <p>Cuenta admin: admin@gmail.com</p>
+            <p>Contraseña: 123456</p>
         </div>
         
     </div>

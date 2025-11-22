@@ -1,8 +1,4 @@
 <?php
-/**
- * LOGOUT - SECTOR 404
- * Cerrar sesión y destruir variables
- */
 
 session_start();
 session_unset();
