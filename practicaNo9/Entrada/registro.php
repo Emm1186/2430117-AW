@@ -44,10 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $tipo_mensaje = 'error';
         } else {
             
-                $sql = "INSERT INTO usuarios (Correo, Contrasena, Nombre, Rol, Activo, FechaCreacion) 
-                    VALUES (?, ?, ?, 'Admin', 1, NOW())";
-                $stmt = $conexion->prepare($sql);
-                $stmt->bind_param("sss", $correo, $contrasena, $nombre);
+            $sql = "INSERT INTO usuarios (Correo, Contrasena, Nombre, Rol, Activo, FechaCreacion) 
+                    VALUES (?, ?, ?, 'Paciente', 1, NOW())";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bind_param("sss", $correo, $contrasena, $nombre);
             
             if ($stmt->execute()) {
                 $mensaje = 'Cuenta creada exitosamente. Redirigiendo...';
