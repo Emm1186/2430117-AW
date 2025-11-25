@@ -149,7 +149,7 @@ $resultado_citas = $conexion->query($sql_proximas);
                         <div class="stat-icon">📅</div>
                         <div class="stat-label">Citas Hoy</div>
                         <div class="stat-number"><?php echo $citas_hoy; ?></div>
-                        <a href="agenda.php" class="btn btn-sm btn-outline-info mt-2">Ver agenda</a>
+                        <a href="controlAgenda.php" class="btn btn-sm btn-outline-info mt-2">Ver agenda</a>
                     </div>
                 </div>
 
