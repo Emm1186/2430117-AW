@@ -163,6 +163,30 @@ $conexion->close();
                 👤 <?php echo htmlspecialchars($usuario_nombre); ?>
                 <span class="badge bg-secondary ms-2"><?php echo htmlspecialchars($usuario_rol); ?></span>
             <?php endif; ?>
+        </div>
+        <?php if (!empty($usuario_nombre)): ?>
+            <a href="Entrada/logout.php" class="btn btn-sm btn-outline-danger">Cerrar sesión</a>
+        <?php endif; ?>
+    </header>
+    <div class="contenedor">
+    <nav class="barra-lateral">
+        <div class="titulo"> Menú</div>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'dashboard.php') ? ' activo' : ''; ?>" href="dashboard.php">🏠 Inicio</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'pacientes.php') ? ' activo' : ''; ?>" href="pacientes.php">👥 Control de pacientes</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'agenda.php') ? ' activo' : ''; ?>" href="agenda.php">📅 Control de agenda</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'medicos.php') ? ' activo' : ''; ?>" href="medicos.php">👨‍⚕️ Control de médicos</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'especialidades.php') ? ' activo' : ''; ?>" href="especialidades.php">🩺 Especialidades médicas</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'tarifas.php') ? ' activo' : ''; ?>" href="tarifas.php">💰 Gestor de tarifas</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'pagos.php') ? ' activo' : ''; ?>" href="pagos.php">💳 Pagos</a>
+        <a class="enlace<?php echo (basename($_SERVER['PHP_SELF']) == 'reportes.php') ? ' activo' : ''; ?>" href="reportes.php">📊 Reportes</a>
+        <hr style="margin: 15px 0; border-color: #ddd;">
+        <div class="titulo">⚙️ Administración</div>
+        <a class="enlace" href="bitacoras.php">📝 Bitácoras</a>
+    </nav>
+
+        <!-- Contenido principal -->
+        <main class="principal">
+            
             <div class="header-seccion">
                 <h2>👨‍⚕️ Control de Médicos</h2>
                 <p class="text-muted">Gestión completa del personal médico</p>
