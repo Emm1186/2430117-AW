@@ -224,7 +224,7 @@ $conexion->close();
     </div>
 
     <!-- Modal Agendar/Editar Cita -->
-    <div class="modal fade" id="modalCita" tabindex="-1" <?php if ($cita_editar): ?>style="display:block;" class="show"<?php endif; ?>>
+    <div class="modal fade" id="modalCita" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -284,6 +284,14 @@ $conexion->close();
     <!-- Pasar datos a JS -->
     <script>
         const citasRegistradas = <?php echo json_encode($citas_array); ?>;
+        
+        // Abrir modal automáticamente si estamos editando
+        <?php if ($cita_editar): ?>
+        document.addEventListener('DOMContentLoaded', function() {
+            var modal = new bootstrap.Modal(document.getElementById('modalCita'));
+            modal.show();
+        });
+        <?php endif; ?>
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
