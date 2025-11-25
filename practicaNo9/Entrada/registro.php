@@ -9,9 +9,7 @@ $tipo_mensaje = '';
 // Procesar formulario cuando se envía
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
-    // Obtener datos del formulario
-    // Nota: aquí usamos funciones simples para limpiar entradas
-    // Esto es intencionalmente sencillo para quien está aprendiendo PHP
+    
     $nombre = isset($_POST['nombre']) ? limpiar_dato($_POST['nombre']) : '';
     $correo = isset($_POST['correo']) ? limpiar_dato($_POST['correo']) : '';
     $contrasena = isset($_POST['contrasena']) ? $_POST['contrasena'] : '';

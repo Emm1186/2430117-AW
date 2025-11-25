@@ -15,28 +15,67 @@ $usuario_nombre = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : '';
 
 $mensaje = '';
 $tipo_mensaje = '';
+$cita_editar = null;
 
-// PROCESAR GUARDADO DE CITA
+// ELIMINAR CITA
+if (isset($_GET['eliminar'])) {
+    $id_cita = intval($_GET['eliminar']);
+    $sql = "DELETE FROM controlagenda WHERE IdCita = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("i", $id_cita);
+    
+    if ($stmt->execute()) {
+        $mensaje = 'Cita eliminada correctamente';
+        $tipo_mensaje = 'success';
+    } else {
+        $mensaje = 'Error al eliminar la cita';
+        $tipo_mensaje = 'danger';
+    }
+    $stmt->close();
+}
+
+// CARGAR CITA PARA EDITAR
+if (isset($_GET['editar'])) {
+    $id_cita = intval($_GET['editar']);
+    $sql = "SELECT * FROM controlagenda WHERE IdCita = ?";
+    $stmt = $conexion->prepare($sql);
+    $stmt->bind_param("i", $id_cita);
+    $stmt->execute();
+    $cita_editar = $stmt->get_result()->fetch_assoc();
+    $stmt->close();
+}
+
+// PROCESAR GUARDADO/ACTUALIZACIÓN DE CITA
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['guardar_cita'])) {
+    $id_cita = isset($_POST['id_cita']) ? intval($_POST['id_cita']) : 0;
     $id_paciente = intval($_POST['id_paciente']);
     $id_medico = intval($_POST['id_medico']);
-    $fecha_hora = $_POST['fecha_hora']; // Formato YYYY-MM-DDTHH:MM
+    $fecha_hora = $_POST['fecha_hora'];
     $motivo = limpiar_dato($_POST['motivo']);
     
     if ($id_paciente == 0 || $id_medico == 0 || empty($fecha_hora)) {
         $mensaje = 'Faltan datos obligatorios';
         $tipo_mensaje = 'warning';
     } else {
-        $sql = "INSERT INTO controlagenda (IdPaciente, IdMedico, FechaCita, MotivoConsulta, EstadoCita) 
-                VALUES (?, ?, ?, ?, 'Programada')";
-        $stmt = $conexion->prepare($sql);
-        $stmt->bind_param("iiss", $id_paciente, $id_medico, $fecha_hora, $motivo);
+        if ($id_cita > 0) {
+            // ACTUALIZAR
+            $sql = "UPDATE controlagenda SET IdPaciente = ?, IdMedico = ?, FechaCita = ?, MotivoConsulta = ? WHERE IdCita = ?";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bind_param("iissi", $id_paciente, $id_medico, $fecha_hora, $motivo, $id_cita);
+        } else {
+            // CREAR NUEVA
+            $sql = "INSERT INTO controlagenda (IdPaciente, IdMedico, FechaCita, MotivoConsulta, EstadoCita) 
+                    VALUES (?, ?, ?, ?, 'Programada')";
+            $stmt = $conexion->prepare($sql);
+            $stmt->bind_param("iiss", $id_paciente, $id_medico, $fecha_hora, $motivo);
+        }
         
         if ($stmt->execute()) {
-            $mensaje = 'Cita agendada correctamente';
+            $mensaje = $id_cita > 0 ? 'Cita actualizada correctamente' : 'Cita agendada correctamente';
             $tipo_mensaje = 'success';
+            $cita_editar = null;
         } else {
-            $mensaje = 'Error al agendar: ' . $stmt->error;
+            $mensaje = 'Error al guardar: ' . $stmt->error;
             $tipo_mensaje = 'danger';
         }
         $stmt->close();
@@ -157,11 +196,20 @@ $conexion->close();
                         <div class="list-group list-group-flush" style="max-height: 400px; overflow-y: auto;">
                             <?php foreach ($citas_array as $cita): ?>
                                 <div class="list-group-item">
-                                    <div class="d-flex w-100 justify-content-between">
-                                        <h6 class="mb-1"><?php echo htmlspecialchars($cita['title']); ?></h6>
+                                    <div class="d-flex w-100 justify-content-between align-items-start">
+                                        <div class="flex-grow-1">
+                                            <h6 class="mb-1"><?php echo htmlspecialchars($cita['title']); ?></h6>
+                                            <p class="mb-1 small text-muted"><?php echo date('d/m/Y H:i', strtotime($cita['start'])); ?></p>
+                                            <small><?php echo htmlspecialchars($cita['description']); ?></small>
+                                        </div>
+                                        <div class="btn-group-vertical btn-group-sm">
+                                            <a href="controlAgenda.php?editar=<?php echo $cita['id']; ?>" class="btn btn-warning btn-sm" title="Editar">✏️</a>
+                                            <a href="controlAgenda.php?eliminar=<?php echo $cita['id']; ?>" 
+                                               class="btn btn-danger btn-sm" 
+                                               onclick="return confirm('¿Eliminar esta cita?');" 
+                                               title="Eliminar">🗑️</a>
+                                        </div>
                                     </div>
-                                    <p class="mb-1 small text-muted"><?php echo date('d/m/Y H:i', strtotime($cita['start'])); ?></p>
-                                    <small><?php echo htmlspecialchars($cita['description']); ?></small>
                                 </div>
                             <?php endforeach; ?>
                             <?php if (empty($citas_array)): ?>
@@ -175,22 +223,27 @@ $conexion->close();
         </main>
     </div>
 
-    <!-- Modal Agendar Cita -->
-    <div class="modal fade" id="modalCita" tabindex="-1">
+    <!-- Modal Agendar/Editar Cita -->
+    <div class="modal fade" id="modalCita" tabindex="-1" <?php if ($cita_editar): ?>style="display:block;" class="show"<?php endif; ?>>
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Agendar Cita</h5>
+                    <h5 class="modal-title"><?php echo $cita_editar ? '✏️ Editar Cita' : '➕ Agendar Cita'; ?></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <form method="POST" action="">
+                    <input type="hidden" name="id_cita" value="<?php echo $cita_editar ? $cita_editar['IdCita'] : ''; ?>">
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label">Paciente</label>
                             <select class="form-select" name="id_paciente" required>
                                 <option value="">Seleccionar...</option>
-                                <?php while ($p = $pacientes->fetch_assoc()): ?>
-                                    <option value="<?php echo $p['IdPaciente']; ?>"><?php echo htmlspecialchars($p['NombreCompleto']); ?></option>
+                                <?php 
+                                $pacientes->data_seek(0);
+                                while ($p = $pacientes->fetch_assoc()): 
+                                    $selected = ($cita_editar && $cita_editar['IdPaciente'] == $p['IdPaciente']) ? 'selected' : '';
+                                ?>
+                                    <option value="<?php echo $p['IdPaciente']; ?>" <?php echo $selected; ?>><?php echo htmlspecialchars($p['NombreCompleto']); ?></option>
                                 <?php endwhile; ?>
                             </select>
                         </div>
@@ -198,23 +251,30 @@ $conexion->close();
                             <label class="form-label">Médico</label>
                             <select class="form-select" name="id_medico" required>
                                 <option value="">Seleccionar...</option>
-                                <?php while ($m = $medicos->fetch_assoc()): ?>
-                                    <option value="<?php echo $m['IdMedico']; ?>"><?php echo htmlspecialchars($m['NombreCompleto']); ?></option>
+                                <?php 
+                                $medicos->data_seek(0);
+                                while ($m = $medicos->fetch_assoc()): 
+                                    $selected = ($cita_editar && $cita_editar['IdMedico'] == $m['IdMedico']) ? 'selected' : '';
+                                ?>
+                                    <option value="<?php echo $m['IdMedico']; ?>" <?php echo $selected; ?>><?php echo htmlspecialchars($m['NombreCompleto']); ?></option>
                                 <?php endwhile; ?>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Fecha y Hora</label>
-                            <input type="datetime-local" class="form-control" name="fecha_hora" id="inputFechaHora" required>
+                            <input type="datetime-local" class="form-control" name="fecha_hora" 
+                                   value="<?php echo $cita_editar ? date('Y-m-d\TH:i', strtotime($cita_editar['FechaCita'])) : ''; ?>" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Motivo</label>
-                            <textarea class="form-control" name="motivo" rows="2" placeholder="Ej: Dolor de cabeza..."></textarea>
+                            <textarea class="form-control" name="motivo" rows="2" placeholder="Ej: Dolor de cabeza..."><?php echo $cita_editar ? htmlspecialchars($cita_editar['MotivoConsulta']) : ''; ?></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                        <button type="submit" name="guardar_cita" class="btn btn-primary">Guardar Cita</button>
+                        <a href="controlAgenda.php" class="btn btn-secondary">Cancelar</a>
+                        <button type="submit" name="guardar_cita" class="btn btn-primary">
+                            <?php echo $cita_editar ? '💾 Actualizar' : '➕ Guardar'; ?>
+                        </button>
                     </div>
                 </form>
             </div>
