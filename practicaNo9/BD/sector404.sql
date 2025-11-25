@@ -405,6 +405,20 @@ ALTER TABLE `reportes`
 --
 ALTER TABLE `usuarios`
   ADD CONSTRAINT `usuarios_ibfk_1` FOREIGN KEY (`IdMedico`) REFERENCES `controlmedico` (`IdMedico`);
+
+-- --------------------------------------------------------
+-- ACTUALIZACIONES POSTERIORES
+-- --------------------------------------------------------
+
+-- Agregar columna IdPaciente a usuarios (vinculación paciente-cuenta)
+ALTER TABLE `usuarios` 
+ADD COLUMN `IdPaciente` INT(11) DEFAULT NULL AFTER `IdMedico`,
+ADD CONSTRAINT `fk_usuarios_paciente` 
+    FOREIGN KEY (`IdPaciente`) REFERENCES `controlpacientes`(`IdPaciente`) 
+    ON DELETE SET NULL;
+
+CREATE INDEX `idx_usuarios_paciente` ON `usuarios`(`IdPaciente`);
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

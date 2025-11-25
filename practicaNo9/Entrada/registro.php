@@ -1,8 +1,4 @@
 <?php
-/**
- * REGISTRO - SECTOR 404
- * Sistema de creación de cuentas con base de datos
- */
 
 require_once '../Conexion/conexion.php';
 
@@ -50,12 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $tipo_mensaje = 'error';
         } else {
             
-                // Almacenar contraseña en texto plano (NO RECOMENDADO)
-                // Atención: esto guarda la contraseña tal cual en la base de datos.
-                // Esta implementación es para aprendizaje y así lo solicitó el usuario.
-            
-                // Insertar nuevo usuario (consulta preparada)
-                // Nota: se asigna el rol 'Admin' por defecto según la solicitud
                 $sql = "INSERT INTO usuarios (Correo, Contrasena, Nombre, Rol, Activo, FechaCreacion) 
                     VALUES (?, ?, ?, 'Admin', 1, NOW())";
                 $stmt = $conexion->prepare($sql);

@@ -52,9 +52,14 @@ function verificar_acceso($roles_permitidos = []) {
     }
 
     // 3. Verificar si el rol del usuario está permitido
-    // (Asumimos que $_SESSION['rol'] se estableció en el login)
     if (!in_array($_SESSION['rol'], $roles_permitidos)) {
-        // Acceso denegado: redirigir a una página de error o al dashboard con mensaje
+        // Si es un paciente intentando acceder a módulos administrativos, redirigir a su dashboard
+        if ($_SESSION['rol'] == 'Paciente') {
+            header('Location: dashboard_paciente.php');
+            exit;
+        }
+        
+        // Para otros casos, mostrar acceso denegado
         echo "<script>
             alert('Acceso denegado. No tienes permisos para ver esta página.');
             window.location.href = '../dashboard.php';
