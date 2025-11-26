@@ -133,12 +133,26 @@ function generarPDF($tipo, $titulo, $datos) {
             body { font-family: Arial, sans-serif; margin: 20px; }
             h1 { text-align: center; color: #333; }
             .fecha { text-align: center; color: #666; margin-bottom: 20px; }
+            .botones { text-align: center; margin-bottom: 20px; }
+            .btn { 
+                padding: 12px 24px; 
+                margin: 0 5px;
+                border: none; 
+                cursor: pointer; 
+                font-size: 14px;
+                border-radius: 5px;
+                transition: all 0.3s;
+            }
+            .btn-print { background: #2196F3; color: white; }
+            .btn-print:hover { background: #0b7dda; }
+            .btn-pdf { background: #4CAF50; color: white; }
+            .btn-pdf:hover { background: #45a049; }
             table { width: 100%; border-collapse: collapse; margin-top: 20px; }
             th { background: #4CAF50; color: white; padding: 10px; text-align: left; }
             td { border: 1px solid #ddd; padding: 8px; }
             tr:nth-child(even) { background: #f2f2f2; }
             @media print {
-                button { display: none; }
+                .botones { display: none; }
             }
         </style>
     </head>
@@ -146,9 +160,14 @@ function generarPDF($tipo, $titulo, $datos) {
         <h1><?php echo $titulo; ?></h1>
         <div class="fecha">Fecha de generación: <?php echo date('d/m/Y H:i'); ?></div>
         
-        <button onclick="window.print()" style="padding: 10px 20px; background: #4CAF50; color: white; border: none; cursor: pointer; margin-bottom: 10px;">
-            Imprimir / Guardar como PDF
-        </button>
+        <div class="botones">
+            <button onclick="imprimirDirecto()" class="btn btn-print">
+                🖨️ Imprimir
+            </button>
+            <button onclick="descargarPDF()" class="btn btn-pdf">
+                📄 Descargar PDF
+            </button>
+        </div>
         
         <?php if (!empty($datos)): ?>
         <table>
@@ -172,6 +191,18 @@ function generarPDF($tipo, $titulo, $datos) {
         <?php else: ?>
         <p style="text-align: center; color: #999;">No hay datos para mostrar</p>
         <?php endif; ?>
+        
+        <script>
+            function imprimirDirecto() {
+                window.print();
+            }
+            
+            function descargarPDF() {
+                // Mostrar instrucciones para el usuario
+                alert('En el diálogo de impresión:\n\n1. Selecciona "Guardar como PDF" o "Microsoft Print to PDF" como destino\n2. Haz clic en Guardar\n\nSi no ves la opción, busca "Cambiar destino" o "Destino"');
+                window.print();
+            }
+        </script>
     </body>
     </html>
     <?php
